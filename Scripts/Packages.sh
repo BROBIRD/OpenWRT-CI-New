@@ -52,7 +52,7 @@ UPDATE_PACKAGE "argon" "jerrykuku/luci-theme-argon" "master"
 # UPDATE_PACKAGE "aurora-config" "eamonxg/luci-app-aurora-config" "master"
 # UPDATE_PACKAGE "kucat" "sirpdboy/luci-theme-kucat" "master"
 # UPDATE_PACKAGE "kucat-config" "sirpdboy/luci-app-kucat-config" "master"
-UPDATE_PACKAGE "zerotier" "sbwml/feeds_packages_net_zerotier" "main"
+# UPDATE_PACKAGE "zerotier" "sbwml/feeds_packages_net_zerotier" "main"
 
 # UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 # UPDATE_PACKAGE "momo" "nikkinikki-org/OpenWrt-momo" "main"
@@ -66,17 +66,17 @@ UPDATE_PACKAGE "passwall" "Openwrt-Passwall/openwrt-passwall" "main" "pkg"
 UPDATE_PACKAGE "ddns-go" "sirpdboy/luci-app-ddns-go" "main"
 UPDATE_PACKAGE "diskman" "lisaac/luci-app-diskman" "master"
 UPDATE_PACKAGE "easytier" "EasyTier/luci-app-easytier" "main"
-UPDATE_PACKAGE "fancontrol" "rockjake/luci-app-fancontrol" "main"
-UPDATE_PACKAGE "gecoosac" "laipeng668/luci-app-gecoosac" "main"
+# UPDATE_PACKAGE "fancontrol" "rockjake/luci-app-fancontrol" "main"
+# UPDATE_PACKAGE "gecoosac" "laipeng668/luci-app-gecoosac" "main"
 UPDATE_PACKAGE "mosdns" "sbwml/luci-app-mosdns" "v5" "" "v2dat"
-UPDATE_PACKAGE "netspeedtest" "sirpdboy/netspeedtest" "main" "" "homebox speedtest"
-UPDATE_PACKAGE "openlist2" "sbwml/luci-app-openlist2" "main"
-UPDATE_PACKAGE "partexp" "sirpdboy/luci-app-partexp" "main"
-UPDATE_PACKAGE "qbittorrent" "sbwml/luci-app-qbittorrent" "master" "" "qt6base qt6tools rblibtorrent"
-UPDATE_PACKAGE "qmodem" "FUjr/QModem" "main"
-UPDATE_PACKAGE "quickfile" "sbwml/luci-app-quickfile" "main"
-UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "luci-app-timewol luci-app-wolplus"
-UPDATE_PACKAGE "vnt" "lmq8267/luci-app-vnt" "main"
+# UPDATE_PACKAGE "netspeedtest" "sirpdboy/netspeedtest" "main" "" "homebox speedtest"
+# UPDATE_PACKAGE "openlist2" "sbwml/luci-app-openlist2" "main"
+# UPDATE_PACKAGE "partexp" "sirpdboy/luci-app-partexp" "main"
+# UPDATE_PACKAGE "qbittorrent" "sbwml/luci-app-qbittorrent" "master" "" "qt6base qt6tools rblibtorrent"
+# UPDATE_PACKAGE "qmodem" "FUjr/QModem" "main"
+# UPDATE_PACKAGE "quickfile" "sbwml/luci-app-quickfile" "main"
+# UPDATE_PACKAGE "viking" "VIKINGYFY/packages" "main" "" "luci-app-timewol luci-app-wolplus"
+# UPDATE_PACKAGE "vnt" "lmq8267/luci-app-vnt" "main"
 UPDATE_PACKAGE "luci-app-adguardhome" "stevenjoezhang/luci-app-adguardhome" "master"
 UPDATE_PACKAGE "luci-app-argon-config" "jerrykuku/luci-app-argon-config" "master"
 
@@ -136,15 +136,17 @@ git clone --single-branch --depth=1 https://github.com/sbwml/v2ray-geodata $GITH
 
 # rm -rf feeds/smpackage/gost/patches
 rm -rf $GITHUB_WORKSPACE/wrt/feeds/smpackage/luci-app-gost
-../gh-down.sh https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-gost $GITHUB_WORKSPACE/wrt/feeds/smpackage/luci-app-gost
+$GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-gost $GITHUB_WORKSPACE/wrt/feeds/smpackage/luci-app-gost
 
 rm -rf $GITHUB_WORKSPACE/wrt/feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb,tcping}
 
 git clone --single-branch --depth=1 https://github.com/EasyTier/luci-app-easytier.git $GITHUB_WORKSPACE/wrt/package/extra/luci-app-easytier
 
-rm -rf feeds/packages/net/microsocks
-../gh-down.sh https://github.com/fw876/helloworld/tree/master/microsocks $GITHUB_WORKSPACE/wrt/feeds/packages/net/microsocks
+rm -rf $GITHUB_WORKSPACE/wrt/feeds/packages/net/microsocks
+$GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/fw876/helloworld/tree/master/microsocks $GITHUB_WORKSPACE/wrt/feeds/packages/net/microsocks
 
+rm -rf $GITHUB_WORKSPACE/wrt/feeds/packages/net/zerotier
+git clone --single-branch --depth=1 https://github.com/sbwml/feeds_packages_net_zerotier.git $GITHUB_WORKSPACE/wrt/feeds/packages/net/zerotier
 
 
 #更新软件包版本
