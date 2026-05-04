@@ -52,6 +52,7 @@ UPDATE_PACKAGE "argon" "jerrykuku/luci-theme-argon" "master"
 # UPDATE_PACKAGE "aurora-config" "eamonxg/luci-app-aurora-config" "master"
 # UPDATE_PACKAGE "kucat" "sirpdboy/luci-theme-kucat" "master"
 # UPDATE_PACKAGE "kucat-config" "sirpdboy/luci-app-kucat-config" "master"
+UPDATE_PACKAGE "zerotier" "sbwml/feeds_packages_net_zerotier" "main"
 
 # UPDATE_PACKAGE "homeproxy" "VIKINGYFY/homeproxy" "main"
 # UPDATE_PACKAGE "momo" "nikkinikki-org/OpenWrt-momo" "main"
@@ -143,6 +144,7 @@ git clone --single-branch --depth=1 https://github.com/EasyTier/luci-app-easytie
 
 rm -rf feeds/packages/net/microsocks
 ../gh-down.sh https://github.com/fw876/helloworld/tree/master/microsocks $GITHUB_WORKSPACE/wrt/feeds/packages/net/microsocks
+
 
 
 #更新软件包版本
