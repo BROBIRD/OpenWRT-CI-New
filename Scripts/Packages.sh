@@ -81,9 +81,10 @@ UPDATE_PACKAGE "luci-app-argon-config" "jerrykuku/luci-app-argon-config" "master
 
 
 
+git clone https://github.com/sbwml/openwrt_helloworld $GITHUB_WORKSPACE/wrt/package/sbwml_helloworld
 
-
-sed -i -r '/elseif szType == ("sip008"|"vmess") then/i\\t\tresult.fast_open = "1"' feeds/helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
+sed -i -r '/elseif szType == ("sip008"|"vmess") then/i\\t\tresult.fast_open = "1"' $GITHUB_WORKSPACE/wrt/package/sbwml_helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
+sed -i -r '/elseif szType == ("sip008"|"vmess") then/i\\t\tresult.fast_open = "1"' $GITHUB_WORKSPACE/wrt/feeds/helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
 
 rm -rf $GITHUB_WORKSPACE/wrt/package/system/procd
 $GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/immortalwrt/immortalwrt/tree/master/package/system/procd $GITHUB_WORKSPACE/wrt/package/system/procd
@@ -102,7 +103,7 @@ rm -rf $GITHUB_WORKSPACE/wrt/feeds/packages/libs/ngtcp2
 git clone --single-branch --depth=1 https://github.com/sbwml/package_libs_ngtcp2 $GITHUB_WORKSPACE/wrt/package/libs/ngtcp2
 
 # BBRv3 - linux-6.12
-pushd target/linux/generic/backport-6.12
+pushd $GITHUB_WORKSPACE/wrt/target/linux/generic/backport-6.12
     curl -Os https://raw.githubusercontent.com/sbwml/r4s_build_script/021c0f4b77258923a7a3c735565e19d1acb410b3/openwrt/patch/kernel-6.12/bbr3/010-bbr3-0001-net-tcp_bbr-broaden-app-limited-rate-sample-detectio.patch
     curl -Os https://raw.githubusercontent.com/sbwml/r4s_build_script/021c0f4b77258923a7a3c735565e19d1acb410b3/openwrt/patch/kernel-6.12/bbr3/010-bbr3-0002-net-tcp_bbr-v2-shrink-delivered_mstamp-first_tx_msta.patch
     curl -Os https://raw.githubusercontent.com/sbwml/r4s_build_script/021c0f4b77258923a7a3c735565e19d1acb410b3/openwrt/patch/kernel-6.12/bbr3/010-bbr3-0003-net-tcp_bbr-v2-snapshot-packets-in-flight-at-transmi.patch
@@ -129,19 +130,19 @@ popd
 find ./ | grep Makefile | grep v2ray-geodata | xargs rm -f
 find ./ | grep Makefile | grep mosdns | xargs rm -f
 
-git clone --single-branch --depth=1 https://github.com/sbwml/luci-app-mosdns -b v5 package/mosdns
-git clone --single-branch --depth=1 https://github.com/sbwml/v2ray-geodata package/v2ray-geodata
+git clone --single-branch --depth=1 https://github.com/sbwml/luci-app-mosdns -b v5 $GITHUB_WORKSPACE/wrt/package/mosdns
+git clone --single-branch --depth=1 https://github.com/sbwml/v2ray-geodata $GITHUB_WORKSPACE/wrt/package/v2ray-geodata
 
 # rm -rf feeds/smpackage/gost/patches
-rm -rf feeds/smpackage/luci-app-gost
-../gh-down.sh https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-gost feeds/smpackage/luci-app-gost
+rm -rf $GITHUB_WORKSPACE/wrt/feeds/smpackage/luci-app-gost
+../gh-down.sh https://github.com/kenzok8/openwrt-packages/tree/master/luci-app-gost $GITHUB_WORKSPACE/wrt/feeds/smpackage/luci-app-gost
 
-rm -rf feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb,tcping}
+rm -rf $GITHUB_WORKSPACE/wrt/feeds/smpackage/{base-files,dnsmasq,firewall*,fullconenat,libnftnl,nftables,ppp,opkg,ucl,upx,vsftpd*,miniupnpd-iptables,wireless-regdb,tcping}
 
-git clone --single-branch --depth=1 https://github.com/EasyTier/luci-app-easytier.git package/extra/luci-app-easytier
+git clone --single-branch --depth=1 https://github.com/EasyTier/luci-app-easytier.git $GITHUB_WORKSPACE/wrt/package/extra/luci-app-easytier
 
 rm -rf feeds/packages/net/microsocks
-../gh-down.sh https://github.com/fw876/helloworld/tree/master/microsocks feeds/packages/net/microsocks
+../gh-down.sh https://github.com/fw876/helloworld/tree/master/microsocks $GITHUB_WORKSPACE/wrt/feeds/packages/net/microsocks
 
 
 #更新软件包版本
