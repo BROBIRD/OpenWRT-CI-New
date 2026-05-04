@@ -81,7 +81,7 @@ UPDATE_PACKAGE "luci-app-argon-config" "jerrykuku/luci-app-argon-config" "master
 
 
 
-git clone https://github.com/sbwml/openwrt_helloworld $GITHUB_WORKSPACE/wrt/package/sbwml_helloworld
+git clone https://github.com/sbwml/openwrt_helloworld.git $GITHUB_WORKSPACE/wrt/package/sbwml_helloworld
 
 sed -i -r '/elseif szType == ("sip008"|"vmess") then/i\\t\tresult.fast_open = "1"' $GITHUB_WORKSPACE/wrt/package/sbwml_helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
 sed -i -r '/elseif szType == ("sip008"|"vmess") then/i\\t\tresult.fast_open = "1"' $GITHUB_WORKSPACE/wrt/feeds/helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
