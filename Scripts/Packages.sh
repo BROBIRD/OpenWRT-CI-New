@@ -103,8 +103,8 @@ sed -i 's/1.26.2/1.30.0/g' $GITHUB_WORKSPACE/wrt/feeds/packages/net/nginx/Makefi
 sed -i 's/627fe086209bba80a2853a0add9d958d7ebbdffa1a8467a5784c9a6b4f03d738/058188c64bf22baecaa72b809a6318a4f9ba623889c554feab03f7cb853ab31b/g' $GITHUB_WORKSPACE/wrt/feeds/packages/net/nginx/Makefile
 
 # nginx - ubus
-sed -i 's/ubus_parallel_req 2/ubus_parallel_req 6/g' feeds/packages/net/nginx/files-luci-support/60_nginx-luci-support
-sed -i '/ubus_parallel_req/a\        ubus_script_timeout 600;' feeds/packages/net/nginx/files-luci-support/60_nginx-luci-support
+sed -i 's/ubus_parallel_req 2/ubus_parallel_req 6/g' $GITHUB_WORKSPACE/wrt/feeds/packages/net/nginx/files-luci-support/60_nginx-luci-support
+sed -i '/ubus_parallel_req/a\        ubus_script_timeout 600;' $GITHUB_WORKSPACE/wrt/feeds/packages/net/nginx/files-luci-support/60_nginx-luci-support
 
 rm -rf $GITHUB_WORKSPACE/wrt/package/system/procd
 $GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/immortalwrt/immortalwrt/tree/master/package/system/procd $GITHUB_WORKSPACE/wrt/package/system/procd
@@ -113,12 +113,12 @@ $GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/immortalwrt/immortalwrt/
 sed -i "/-openwrt/iOPENSSL_OPTIONS += enable-ktls '-DDEVRANDOM=\"\\\\\"/dev/urandom\\\\\"\"\'\n" $GITHUB_WORKSPACE/wrt/package/libs/openssl/Makefile
 
 # openssl -Ofast
-sed -i "s/-O3/-Ofast/g" package/libs/openssl/Makefile
+sed -i "s/-O3/-Ofast/g" $GITHUB_WORKSPACE/wrt/package/libs/openssl/Makefile
 # openssl -Os
 # sed -i "s/-O3/-Os/g" $GITHUB_WORKSPACE/wrt/package/libs/openssl/Makefile
 
 # nghttp3
-$GITHUB_WORKSPACE/wrt/gh-down.sh https://github.com/immortalwrt/packages/tree/master/libs/nghttp3 $GITHUB_WORKSPACE/wrt/package/libs/nghttp3
+$GITHUB_WORKSPACE/wrt/gh-down.sh https://github.com/immortalwrt/packages/tree/master/libs/nghttp3 $GITHUB_WORKSPACE/wrt/feeds/packages/libs/nghttp3
 
 # curl - http3/quic
 rm -rf $GITHUB_WORKSPACE/wrt/feeds/packages/net/curl
@@ -126,7 +126,7 @@ git clone --single-branch --depth=1 https://github.com/sbwml/feeds_packages_net_
 
 # ngtcp2
 rm -rf $GITHUB_WORKSPACE/wrt/feeds/packages/libs/ngtcp2
-git clone --single-branch --depth=1 https://github.com/sbwml/package_libs_ngtcp2 $GITHUB_WORKSPACE/wrt/package/libs/ngtcp2
+git clone --single-branch --depth=1 https://github.com/sbwml/package_libs_ngtcp2 $GITHUB_WORKSPACE/wrt/feeds/packages/libs/ngtcp2
 
 # BBRv3 - linux-6.12
 pushd $GITHUB_WORKSPACE/wrt/target/linux/generic/backport-6.12
