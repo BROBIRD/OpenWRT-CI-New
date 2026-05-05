@@ -94,6 +94,18 @@ sed -i 's/+uhttpd /+luci-nginx /g' $GITHUB_WORKSPACE/wrt/feeds/luci/collections/
 sed -i "s/+luci /+luci-nginx /g" $GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci-ssl-openssl/Makefile
 sed -i "s/+luci /+luci-nginx /g" $GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci-ssl/Makefile
 
+# nginx - latest version
+rm -rf $GITHUB_WORKSPACE/wrt/feeds/packages/net/nginx
+git clone --single-branch --depth=1 https://github.com/sbwml/feeds_packages_net_nginx -b quic+zstd $GITHUB_WORKSPACE/wrt/feeds/packages/net/nginx
+# curl -s https://raw.githubusercontent.com/kn007/patch/e2fcf45e320bb8317042b6796b8f9dd42ffdb25c/nginx_dynamic_tls_records.patch > feeds/packages/net/nginx/patches/nginx/105-nginx_dynamic_tls_records.patch
+sed -i 's/procd_set_param stdout 1/procd_set_param stdout 0/g;s/procd_set_param stderr 1/procd_set_param stderr 0/g' $GITHUB_WORKSPACE/wrt/feeds/packages/net/nginx/files/nginx.init
+sed -i 's/1.26.2/1.30.0/g' $GITHUB_WORKSPACE/wrt/feeds/packages/net/nginx/Makefile
+sed -i 's/627fe086209bba80a2853a0add9d958d7ebbdffa1a8467a5784c9a6b4f03d738/058188c64bf22baecaa72b809a6318a4f9ba623889c554feab03f7cb853ab31b/g' $GITHUB_WORKSPACE/wrt/feeds/packages/net/nginx/Makefile
+
+# nginx - ubus
+sed -i 's/ubus_parallel_req 2/ubus_parallel_req 6/g' feeds/packages/net/nginx/files-luci-support/60_nginx-luci-support
+sed -i '/ubus_parallel_req/a\        ubus_script_timeout 600;' feeds/packages/net/nginx/files-luci-support/60_nginx-luci-support
+
 rm -rf $GITHUB_WORKSPACE/wrt/package/system/procd
 $GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/immortalwrt/immortalwrt/tree/master/package/system/procd $GITHUB_WORKSPACE/wrt/package/system/procd
 
