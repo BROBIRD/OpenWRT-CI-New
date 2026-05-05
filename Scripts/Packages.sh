@@ -118,7 +118,7 @@ sed -i "s/-O3/-Ofast/g" $GITHUB_WORKSPACE/wrt/package/libs/openssl/Makefile
 # sed -i "s/-O3/-Os/g" $GITHUB_WORKSPACE/wrt/package/libs/openssl/Makefile
 
 # nghttp3
-$GITHUB_WORKSPACE/wrt/gh-down.sh https://github.com/immortalwrt/packages/tree/master/libs/nghttp3 $GITHUB_WORKSPACE/wrt/feeds/packages/libs/nghttp3
+$GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/immortalwrt/packages/tree/master/libs/nghttp3 $GITHUB_WORKSPACE/wrt/package/libs/nghttp3
 
 # curl - http3/quic
 rm -rf $GITHUB_WORKSPACE/wrt/feeds/packages/net/curl
