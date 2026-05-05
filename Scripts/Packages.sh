@@ -87,6 +87,13 @@ git clone https://github.com/sbwml/openwrt_helloworld.git $GITHUB_WORKSPACE/wrt/
 sed -i -r '/elseif szType == ("sip008"|"vmess") then/i\\t\tresult.fast_open = "1"' $GITHUB_WORKSPACE/wrt/package/sbwml_helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
 sed -i -r '/elseif szType == ("sip008"|"vmess") then/i\\t\tresult.fast_open = "1"' $GITHUB_WORKSPACE/wrt/feeds/helloworld/luci-app-ssr-plus/root/usr/share/shadowsocksr/subscribe.lua
 
+# Use nginx instead of uhttpd
+sed -i 's/+uhttpd /+luci-nginx /g' $GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci/Makefile
+sed -i 's/+uhttpd-mod-ubus //' $GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci/Makefile
+sed -i 's/+uhttpd /+luci-nginx /g' $GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci-light/Makefile
+sed -i "s/+luci /+luci-nginx /g" $GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci-ssl-openssl/Makefile
+sed -i "s/+luci /+luci-nginx /g" $GITHUB_WORKSPACE/wrt/feeds/luci/collections/luci-ssl/Makefile
+
 rm -rf $GITHUB_WORKSPACE/wrt/package/system/procd
 $GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/immortalwrt/immortalwrt/tree/master/package/system/procd $GITHUB_WORKSPACE/wrt/package/system/procd
 
@@ -94,6 +101,9 @@ $GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/immortalwrt/immortalwrt/
 sed -i "/-openwrt/iOPENSSL_OPTIONS += enable-ktls '-DDEVRANDOM=\"\\\\\"/dev/urandom\\\\\"\"\'\n" $GITHUB_WORKSPACE/wrt/package/libs/openssl/Makefile
 # openssl -Os
 # sed -i "s/-O3/-Os/g" $GITHUB_WORKSPACE/wrt/package/libs/openssl/Makefile
+
+# nghttp3
+$GITHUB_WORKSPACE/wrt/gh-down.sh https://github.com/immortalwrt/packages/tree/master/libs/nghttp3 $GITHUB_WORKSPACE/wrt/package/libs/nghttp3
 
 # curl - http3/quic
 rm -rf $GITHUB_WORKSPACE/wrt/feeds/packages/net/curl
