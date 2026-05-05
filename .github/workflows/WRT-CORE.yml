@@ -168,8 +168,8 @@ jobs:
           chmod +x $GITHUB_WORKSPACE/Scripts/*.sh
           $GITHUB_WORKSPACE/Scripts/Packages.sh
           $GITHUB_WORKSPACE/Scripts/Handles.sh
-          ./scripts/feeds update -a
-          ./scripts/feeds install -a
+          ../scripts/feeds update -a
+          ../scripts/feeds install -a
 
       - name: Custom Settings
         run: |
