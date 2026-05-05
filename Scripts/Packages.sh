@@ -111,6 +111,9 @@ $GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/immortalwrt/immortalwrt/
 
 # openssl hwrng
 sed -i "/-openwrt/iOPENSSL_OPTIONS += enable-ktls '-DDEVRANDOM=\"\\\\\"/dev/urandom\\\\\"\"\'\n" $GITHUB_WORKSPACE/wrt/package/libs/openssl/Makefile
+
+# openssl -Ofast
+sed -i "s/-O3/-Ofast/g" package/libs/openssl/Makefile
 # openssl -Os
 # sed -i "s/-O3/-Os/g" $GITHUB_WORKSPACE/wrt/package/libs/openssl/Makefile
 
