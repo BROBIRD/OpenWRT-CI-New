@@ -173,6 +173,8 @@ $GITHUB_WORKSPACE/Scripts/gh-down.sh https://github.com/fw876/helloworld/tree/ma
 rm -rf $GITHUB_WORKSPACE/wrt/feeds/packages/net/zerotier
 git clone --single-branch --depth=1 https://github.com/sbwml/feeds_packages_net_zerotier.git $GITHUB_WORKSPACE/wrt/feeds/packages/net/zerotier
 
+sed -i 's/wget-any/wget/g' $GITHUB_WORKSPACE/wrt/package/luci-theme-argon/Makefile
+
 
 #更新软件包版本
 UPDATE_VERSION() {
