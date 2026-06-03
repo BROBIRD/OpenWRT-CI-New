@@ -91,6 +91,9 @@ jobs:
           sudo ln -s /mnt/build_wrt $GITHUB_WORKSPACE/wrt
 
       - name: Run sccache-cache
+        env:
+          SCCACHE_GHA_ENABLED: "true"
+          RUSTC_WRAPPER: "sccache"
         uses: mozilla-actions/sccache-action@v0.0.10
 
       - name: Initialization Values
