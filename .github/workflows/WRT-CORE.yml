@@ -96,6 +96,22 @@ jobs:
           RUSTC_WRAPPER: "sccache"
         uses: mozilla-actions/sccache-action@v0.0.10
 
+      - name: Export sccache env for following steps
+        run: |
+          echo "RUSTC_WRAPPER=sccache" >> $GITHUB_ENV
+          echo "SCCACHE_DIR=$HOME/.cache/sccache" >> $GITHUB_ENV
+          echo "SCCACHE_CACHE_SIZE=10G" >> $GITHUB_ENV
+
+      - name: Debug sccache env & binary
+        run: |
+          which sccache || true
+          sccache --version || true
+          env | grep -i SCCACHE || true
+          env | grep -E 'CC|CXX|HOSTCC|HOSTCXX|RUSTC_WRAPPER' || true
+
+      - name: Zero sccache stats
+        run: sccache --zero-stats || true
+
       - name: Initialization Values
         run: |
           echo "WRT_DATE=$(TZ=UTC-8 date +"%y.%m.%d-%H.%M.%S")" >> $GITHUB_ENV
@@ -209,6 +225,15 @@ jobs:
 
           make -j$(nproc) || make -j1 V=s
 
+      - name: Show sccache stats
+        if: always()
+        run: |
+          echo "---- sccache stats ----"
+          sccache --show-stats || true
+          echo "---- sccache cache dir ----"
+          du -sh $SCCACHE_DIR || true
+          ls -la $SCCACHE_DIR || true
+
       - name: Machine Information
         run: |
           cd ./wrt/
@@ -251,12 +276,6 @@ jobs:
           tag_name: ${{env.WRT_CONFIG}}-${{env.WRT_INFO}}-${{env.WRT_BRANCH}}-${{env.WRT_DATE}}
           files: ./wrt/upload/*.*
           body: |
-            这是个平台固件包，内含多个设备！
-            请注意选择你需要的设备固件！
-            不要问，刷就完事了！
-
-            全系带开源硬件加速，别问了！
-
             源码：${{env.WRT_REPO}}
             分支：${{env.WRT_BRANCH}}
             提交：${{env.WRT_HASH}}
